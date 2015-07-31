@@ -14,7 +14,7 @@ struct ArgumentItem {
 
 struct ArgumentItem* base;
 
-int addArgument(char* argShort, char* argLong, void* func, unsigned arguments) {
+int args_addArgument(char* argShort, char* argLong, void* func, unsigned arguments) {
 
 	struct ArgumentItem* item = (struct ArgumentItem*) malloc(sizeof(struct ArgumentItem));
 	item->argShort = argShort;
@@ -82,7 +82,7 @@ int parseItem(int argc, char** cmds) {
 	return arg;
 }
 
-char** parse(int argc, char** argv) {
+char** args_parse(int argc, char** argv) {
 
 
 	struct ArgumentItem* item = base;

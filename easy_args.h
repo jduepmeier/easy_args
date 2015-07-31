@@ -6,5 +6,5 @@ typedef struct {
 	char** arguments;
 } Arguments;
 
-int addArgument(char* argShort, char* argLong, void* func);
-char** parse(int argc, char** argv);
+int args_addArgument(char* argShort, char* argLong, void* func);
+char** args_parse(int argc, char** argv);
