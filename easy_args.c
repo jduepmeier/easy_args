@@ -14,7 +14,7 @@ struct ArgumentItem {
 
 struct ArgumentItem* base;
 
-int args_addArgument(char* argShort, char* argLong, void* func, unsigned arguments) {
+int eargs_addArgument(char* argShort, char* argLong, void* func, unsigned arguments) {
 
 	// init struct and fill with arguments
 	struct ArgumentItem* item = (struct ArgumentItem*) malloc(sizeof(struct ArgumentItem));
@@ -106,7 +106,7 @@ int eargs_parseItem(int argc, char** cmds) {
 }
 
 // output should be initialized with: argc * sizeof(char*))
-int args_parse(int argc, char** argv, char** output) {
+int eargs_parse(int argc, char** argv, char** output) {
 
 	// memset output array (don't trust);
 	memset(output, 0, argc * sizeof(char*));

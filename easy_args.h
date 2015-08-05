@@ -26,7 +26,7 @@
  * 	Defines how many arguments the identifier wants.
  * 	If there are not enough arguments an error will be printed.
  */
-int args_addArgument(char* argShort, char* argLong, void* func, unsigned arguments);
+int eargs_addArgument(char* argShort, char* argLong, void* func, unsigned arguments);
 
 /*
  * This method will parse the argument list and writes all arguments in output
@@ -46,4 +46,4 @@ int args_addArgument(char* argShort, char* argLong, void* func, unsigned argumen
  * 	Returns the number of strings in the output array.
  *
  */
-int args_parse(int argc, char** argv, char** output);
+int eargs_parse(int argc, char** argv, char** output);

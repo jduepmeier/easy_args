@@ -23,8 +23,8 @@ int debug(int argc, char** argv) {
 
 void addArgs() {
 	// add two arguments
-	args_addArgument("-d", "--debug", debug, 0);
-	args_addArgument("-t", "--test", test, 1);
+	eargs_addArgument("-d", "--debug", debug, 0);
+	eargs_addArgument("-t", "--test", test, 1);
 
 }
 
@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
 
 	// init output array with size of argc
 	char* output[argc * sizeof(char*)];
-	int outputc = args_parse(argc, argv, output);
+	int outputc = eargs_parse(argc, argv, output);
 
 	printf("Remaining arguments:\n");
 
