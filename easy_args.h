@@ -15,7 +15,7 @@
  *
  *	Arguments:
  *		int argc => size of argv
- *		char* argv[] => arguments
+ *		char* argv[] => arguments with argv[0] as identifier
  *
  *	Return: int
  *		The callback function should return a value less than
