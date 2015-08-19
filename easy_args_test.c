@@ -2,15 +2,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct config {
+	int debug;
+};
 
-int test(int argc, char** argv) {
+int test(int argc, char** argv, void* c) {
+
+	struct config* config = (struct config*) c;
+
 	printf("%s was found and has this argument: %s\n", argv[0], argv[1]);
 
 	return 0;
 }
 
-int debug(int argc, char** argv) {
+int debug(int argc, char** argv, void* c) {
 	printf("Current args list:\n");
+
+	struct config* config = (struct config*) c;
+	config->debug = 1;
 
 	int i;
 
@@ -31,9 +40,15 @@ void addArgs() {
 int main(int argc, char** argv) {
 	addArgs();
 
+	struct config config = {
+		.debug = 0
+	};
+
 	// init output array with size of argc
 	char* output[argc * sizeof(char*)];
-	int outputc = eargs_parse(argc, argv, output);
+	int outputc = eargs_parse(argc, argv, output, &config);
+
+	printf("Debug? %d\n", config.debug);
 
 	printf("Remaining arguments:\n");
 
