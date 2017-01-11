@@ -71,7 +71,7 @@ int eargs_addArgumentFlag(char* argShort, char* argLong, bool* container);
  * @param char** container
  *  Pointer to a char pointer.
  */
-int eargs_addArgumentString(char* argShort, char* argLong, char* container);
+int eargs_addArgumentString(char* argShort, char* argLong, char** container);
 
 /*
  * This method will parse the argument list and writes all arguments in output
