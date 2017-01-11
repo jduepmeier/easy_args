@@ -83,9 +83,9 @@ int eargs_addArgumentString(char* argShort, char* argLong, char* container);
  * 	Array with arguments.
  *
  * @param char** output
- * 	Array for the output arguments. Array must be initialized and 
+ * 	Array for the output arguments. Array must be initialized and
  * 	have at least enough memory for containing all arguments from
- * 	argv.
+ * 	argv or NULL.
  * @param void* config
  * 	Pointer of the config struct. This struct is passed to the
  * 	functions argument functions. It must be defined by the user of

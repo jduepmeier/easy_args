@@ -187,8 +187,10 @@ int eargs_parseItem(int argc, char** cmds, void* config) {
 // output should be initialized with: argc * sizeof(char*))
 int eargs_parse(int argc, char** argv, char** output, void* config) {
 
-	// memset output array (don't trust);
-	memset(output, 0, argc * sizeof(char*));
+	if (output) {
+		// memset output array (don't trust);
+		memset(output, 0, argc * sizeof(char*));
+	}
 	int outputc = 0;
 	int i;
 
@@ -200,7 +202,9 @@ int eargs_parse(int argc, char** argv, char** output, void* config) {
 			return -2;
 		// -1 means no identifier found for this argument -> add to output list
 		} else if (v < 0) {
-			output[outputc] = argv[i];
+			if (output) {
+				output[outputc] = argv[i];
+			}
 			outputc++;
 		} else {
 			// skip arguments used by identifier.
