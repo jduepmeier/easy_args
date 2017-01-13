@@ -1,4 +1,4 @@
-#include "easy_args.h"
+#include <easy_args.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

@@ -1,1 +1,3 @@
-test
+*.o
+*.a
+easy_args_test
