@@ -8,19 +8,16 @@ struct config {
 	bool flag;
 };
 
-int test(int argc, char** argv, void* c) {
-
-	struct config* config = (struct config*) c;
+int test(int argc, char** argv, struct config* config) {
 
 	printf("%s was found and has this argument: %s\n", argv[0], argv[1]);
 
-	return 0;
+	return 1;
 }
 
-int debug(int argc, char** argv, void* c) {
+int debug(int argc, char** argv, struct config* config) {
 	printf("Current args list:\n");
 
-	struct config* config = (struct config*) c;
 	config->debug = 1;
 
 	int i;
