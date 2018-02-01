@@ -10,12 +10,12 @@ test: easy_args_test
 	./easy_args_test ${TESTARGS}
 
 libeasy_args.a: easy_args.o
-	${AR} ${ARFLAGS} $@ $>
+	${AR} ${ARFLAGS} $@ $>$^
 
 %.o: %.c easy_args.h
 	$(CC) $(CFLAGS) $(LDLIBS) -c -o $@ $<
 
-easy_args_test: easy_args_test.o easy_args.o
+easy_args_test: easy_args_test.o libeasy_args.a
 
 clean:
 	rm -f easy_args_test *.o *.a
