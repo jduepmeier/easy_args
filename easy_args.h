@@ -79,6 +79,10 @@ int eargs_addArgumentString(char* argShort, char* argLong, char** container);
  * This method will parse the argument list and writes all arguments in output
  * which are not an identifier or an argument for an identifier.
  *
+ * This method consumes the arguments and it is not be possible to call this
+ * function with the same arguments again (To parse the form --key=value the
+ * equal sign will be replaced with a NULL byte).
+ *
  * @param int argc
  * 	Size of argv array.
  * @param char** argv
