@@ -1,6 +1,12 @@
 # easy_args
 
 This is a small lib for parsing arguments in c.
+It parses arguments in three styles:
+* short arguments with single hyphen (``` -h ```)
+* long arguments with two hyphens (```--help, --variable test```)
+* long arguments with two hyphens and equals sign (```--variable=test```)
+
+Every argument after two hyphens will be in the output array.
 
 ## USE
 
@@ -11,3 +17,4 @@ Short explanation:
 * init a struct for holding configuration variables
 * start parsing with ``` eargs_parse(int argc, char* argc[], char* output[], void* config) ```
 * read remaining arguments from output (args_parse returns the number of remaining items)
+* free output array

@@ -28,7 +28,7 @@ struct ArgumentItem* base;
 int eargs_addArgumentElem(char* argShort, char* argLong, void* func, unsigned arguments, ARG_TYPE type) {
 
 	// init struct and fill with arguments
-	struct ArgumentItem* item = (struct ArgumentItem*) malloc(sizeof(struct ArgumentItem));
+	struct ArgumentItem* item = calloc(1, sizeof(struct ArgumentItem));
 	item->argShort = argShort;
 	item->argLong = argLong;
 	item->func = func;
@@ -150,6 +150,15 @@ int eargs_action(struct ArgumentItem* item, int argc, char** cmds, void* config)
 	}
 }
 
+int action_wrapper(struct ArgumentItem* item, int argc, char** cmds, void* config) {
+	int arg = eargs_action(item, argc, cmds, config);
+	if (arg < 0) {
+		return -1;
+	} else {
+		return arg;
+	}
+}
+
 int eargs_parseItem(int argc, char** cmds, void* config) {
 
 	struct ArgumentItem* item = base;
@@ -166,15 +175,19 @@ int eargs_parseItem(int argc, char** cmds, void* config) {
 		if ((item->argShort && !strcmp(cmds[0], item->argShort)) || (item->argLong && !strcmp(cmds[0], item->argLong))) {
 			// check if enough arguments are available
 			if (argc > item->arguments) {
-				arg = eargs_action(item, argc, cmds, config);
-				if (arg < 0) {
-					return -2;
-				} else {
-					return arg;
-				}
+				return eargs_action(item, argc, cmds, config);
 			} else {
 				printf("(%s,%s) needs an argument.", item->argShort,item->argLong);
 				return -2;
+			}
+		} else if (item->argLong && !strncmp(cmds[0], item->argLong, strlen(item->argLong))) {
+			size_t len = strlen(item->argLong);
+			if (cmds[0][len] == '=') {
+				cmds[0][len] = 0;
+				char* args[2];
+				args[0] = cmds[0];
+				args[1] = cmds[0] + len + 1;
+				return action_wrapper(item, 2, args, config);
 			}
 		}
 		item = item->next;
@@ -184,27 +197,40 @@ int eargs_parseItem(int argc, char** cmds, void* config) {
 }
 
 // output should be initialized with: argc * sizeof(char*))
-int eargs_parse(int argc, char** argv, char** output, void* config) {
+int eargs_parse(int argc, char** argv, char*** output, void* config) {
 
 	if (output) {
-		// memset output array (don't trust);
-		memset(output, 0, argc * sizeof(char*));
+		*output = NULL;
 	}
+
 	int outputc = 0;
 	int i;
+	int v;
+	int test = 1;
 
 	for (i = 1; i < argc; i++) {
-		int v = eargs_parseItem(argc - i, &argv[i], config);
+		if (test) {
+			if (!strcmp("--", argv[i])) {
+				test = 0;
+				continue;
+			} else {
+				v = eargs_parseItem(argc - i, &argv[i], config);
+			}
+		} else {
+			v = -1;
+		}
 
 		// -2 means error in parsing the argument
 		if (v == -2) {
 			return -2;
 		// -1 means no identifier found for this argument -> add to output list
 		} else if (v < 0) {
-			if (output) {
-				output[outputc] = argv[i];
-			}
 			outputc++;
+			if (output) {
+				*output = realloc(*output, outputc * sizeof(char*));
+
+				*output[outputc - 1] = argv[i];
+			}
 		} else {
 			// skip arguments used by identifier.
 			i += v;

@@ -97,4 +97,4 @@ int eargs_addArgumentString(char* argShort, char* argLong, char** container);
  * 	Returns the number of strings in the output array.
  *
  */
-int eargs_parse(int argc, char** argv, char** output, void* config);
+int eargs_parse(int argc, char** argv, char*** output, void* config);

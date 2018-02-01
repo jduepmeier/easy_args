@@ -1,7 +1,8 @@
-#include <easy_args.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+
+#include <easy_args.h>
 
 struct config {
 	int debug;
@@ -46,8 +47,8 @@ int main(int argc, char** argv) {
 	addArgs(&config);
 
 	// init output array with size of argc
-	char* output[argc * sizeof(char*)];
-	int outputc = eargs_parse(argc, argv, output, &config);
+	char** output;
+	int outputc = eargs_parse(argc, argv, &output, &config);
 
 	printf("Debug? %d\n", config.debug);
 
@@ -61,6 +62,7 @@ int main(int argc, char** argv) {
 	if (config.flag) {
 		printf("flag is true\n");
 	}
+	free(output);
 
 	return 0;
 };
