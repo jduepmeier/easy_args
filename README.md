@@ -1,5 +1,7 @@
 # easy_args
 
+[![Coverity Scan Build Status](https://scan.coverity.com/projects/15020/badge.svg)](https://scan.coverity.com/projects/jduepmeier-easy_args)
+
 This is a small lib for parsing arguments in c.
 It parses arguments in three styles:
 * short arguments with single hyphen (``` -h ```)
